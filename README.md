@@ -2,8 +2,9 @@
 
 ***An awesome template for your awesome library***
 
-[![NuGet package](https://img.shields.io/nuget/v/Rixian.Drive.svg)](https://nuget.org/packages/Rixian.Drive)
-[![codecov](https://codecov.io/gh/rixian/drive/branch/master/graph/badge.svg)](https://codecov.io/gh/rixian/drive)
+![NuGet package](https://img.shields.io/badge/nuget-your--package--here-yellow.svg)
+[![Build Status](https://dev.azure.com/andrewarnott/OSS/_apis/build/status/AArnott.Library.Template?branchName=master)](https://dev.azure.com/andrewarnott/OSS/_build/latest?definitionId=29&branchName=master)
+[![codecov](https://codecov.io/gh/aarnott/library.template/branch/master/graph/badge.svg)](https://codecov.io/gh/aarnott/library.template)
 
 ## Features
 
@@ -24,4 +25,4 @@ Once you've expanded this template for your own use, you should **run the `Expan
 Further customize your repo by:
 
 1. Verify the license is suitable for your goal as it appears in the LICENSE and stylecop.json files and the Directory.Build.props file's `PackageLicenseExpression` property.
-2. Reset or replace the badges at the top of this file.
+1. Reset or replace the badges at the top of this file.

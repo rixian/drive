@@ -1,7 +1,7 @@
-// Copyright (c) Rixian. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE file in the project root for full license information.
+﻿// Copyright (c) COMPANY-PLACEHOLDER. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace Rixian.Drive
+namespace Library
 {
     using System;
 
