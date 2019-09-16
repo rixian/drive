@@ -1,0 +1,378 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "To-do Demo",
+    "description": "This OAS2 (Swagger 2) file represents a real API that lives at http://todos.stoplight.io.\n\nFor authentication information, click the apikey security scheme in the editor sidebar.",
+    "contact": {
+      "name": "Stoplight",
+      "url": "https://stoplight.io"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "host": "todos.stoplight.io",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {},
+  "paths": {
+    "/cmd/download": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        },
+        "summary": "Download Content",
+        "operationId": "download-content",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/info": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/drive-item-info"
+            }
+          }
+        },
+        "summary": "Get Item Info",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/list-metadata": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "List File Metadata",
+        "operationId": "list-file-metadata",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/upsert-metadata": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "Upsert File Metadata",
+        "operationId": "upsert-file-metadata",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/clear-metadata": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "Clear File Metadata",
+        "operationId": "clear-file-metadata",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/remove-metadata": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "Remove File Metadata",
+        "operationId": "remove-file-metadata"
+      }
+    },
+    "/cmd/delete": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "Delete Item",
+        "operationId": "delete-item",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/create": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "Create Drive Item",
+        "operationId": "create-drive-item",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "data",
+            "type": "file"
+          },
+          {
+            "in": "query",
+            "name": "overwrite",
+            "type": "boolean",
+            "default": false
+          }
+        ]
+      }
+    },
+    "/cmd/dir": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "List Children",
+        "operationId": "list-children",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/exists": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "Exists",
+        "description": "",
+        "operationId": "exists",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/streams": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "List File Streams",
+        "operationId": "list-file-streams",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "path",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/copy": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "Copy",
+        "operationId": "copy",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "source",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "target",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/cmd/move": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "Move",
+        "operationId": "move",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "source",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "target",
+            "type": "string",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "drive-item-info": {
+      "type": "object",
+      "title": "Drive Item Info",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "partitionId": {
+          "type": "string"
+        },
+        "fullPath": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "string"
+        },
+        "lastAccessedOn": {
+          "type": "string"
+        },
+        "lastModifiedOn": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
