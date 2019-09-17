@@ -48,8 +48,14 @@ paths:
   /cmd/import:
     post:
       responses:
-        '204':
+        '200':
           description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/drive-file-info'
       summary: Import Files
       operationId: import-files
       parameters:
@@ -441,6 +447,8 @@ components:
           type: string
         importPath:
           type: string
+        overwrite:
+          type: boolean
       required:
         - name
         - alternateId
