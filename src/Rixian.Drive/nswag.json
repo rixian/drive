@@ -12,7 +12,7 @@
       "clientBaseClass": null,
       "configurationClass": null,
       "generateClientClasses": true,
-      "generateClientInterfaces": true,
+      "generateClientInterfaces": false,
       "injectHttpClient": true,
       "disposeHttpClient": true,
       "protectedMethods": [],
@@ -26,7 +26,7 @@
       "generateBaseUrlProperty": false,
       "generateSyncMethods": false,
       "exposeJsonSerializerSettings": false,
-      "clientClassAccessModifier": "public",
+      "clientClassAccessModifier": "internal",
       "typeAccessModifier": "public",
       "generateContractsOutput": false,
       "contractsNamespace": null,
@@ -35,7 +35,7 @@
       "generateUpdateJsonSerializerSettingsMethod": true,
       "serializeTypeInformation": false,
       "queryNullValue": "",
-      "className": "DriveClient",
+      "className": "DriveClientInternal",
       "operationGenerationMode": "MultipleClientsFromOperationId",
       "additionalNamespaceUsages": [],
       "additionalContractNamespaceUsages": [],
@@ -84,7 +84,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "DriveClient.cs"
+      "output": "DriveClientInternal.cs"
     }
   }
 }
