@@ -38,6 +38,15 @@ namespace Rixian.Drive
         Task<IDictionary<string, string>> ListFileMetadataAsync(CloudPath path, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// Imports custom files into Rixian Drive.
+        /// </summary>
+        /// <param name="files">The files to import.</param>
+        /// <param name="path">The path to the default import location.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
+        Task ImportFilesAsync(ICollection<ImportRecord> files, CloudPath path = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
         /// Update and/or insert metadata onto a file.
         /// </summary>
         /// <param name="path">The path to a location.</param>

@@ -1,11 +1,9 @@
 openapi: 3.0.0
 info:
   version: 1.3-oas3
-  title: To-do Demo
+  title: Rixian Drive API
   description: |-
-    This OAS2 (Swagger 2) file represents a real API that lives at http://todos.stoplight.io.
-
-    For authentication information, click the apikey security scheme in the editor sidebar.
+    This OAS3 (Swagger 3) file represents the Rixian Drive API that lives at https://api.rixian.io/drive.
   contact:
     name: Stoplight
     url: 'https://stoplight.io'
@@ -47,6 +45,25 @@ paths:
           required: true
           schema:
             type: string
+  /cmd/import:
+    post:
+      responses:
+        '204':
+          description: ''
+      summary: Import Files
+      operationId: import-files
+      parameters:
+        - in: query
+          name: path
+          required: false
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/import-request'
   /cmd/list-metadata:
     get:
       responses:
@@ -249,8 +266,15 @@ paths:
           schema:
             type: string
 servers:
-  - url: 'http://todos.stoplight.io/'
+  - url: 'https://api.rixian.io/drive'
+security:
+  - bearerAuth: []
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     drive-item-info:
       type: object
@@ -392,3 +416,31 @@ components:
           type: boolean
       required:
         - exists
+    import-request:
+      type: object
+      title: ImportRequest
+      properties:
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/import-record'
+      required:
+        - exists
+    import-record:
+      type: object
+      title: ImportRecord
+      properties:
+        name:
+          type: string
+        alternateId:
+          type: string
+        length:
+          type: integer
+          format: int64
+        contentType:
+          type: string
+        importPath:
+          type: string
+      required:
+        - name
+        - alternateId

@@ -69,6 +69,18 @@ namespace Rixian.Drive
         }
 
         /// <inheritdoc/>
+        public Task ImportFilesAsync(ICollection<ImportRecord> files, CloudPath path = null, CancellationToken cancellationToken = default)
+        {
+            return this.internalDriveClient.ImportFilesAsync(
+                new ImportRequest
+                {
+                    Files = files,
+                },
+                path,
+                cancellationToken);
+        }
+
+        /// <inheritdoc/>
         public Task<ICollection<DriveItemInfo>> ListChildrenAsync(CloudPath path, CancellationToken cancellationToken = default)
         {
             return this.internalDriveClient.ListChildrenAsync(path, cancellationToken);
