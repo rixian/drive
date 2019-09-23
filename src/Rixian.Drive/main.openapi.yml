@@ -316,9 +316,7 @@ components:
         name:
           type: string
         attributes:
-          type: array
-          items:
-            type: string
+          type: string
       required:
         - id
         - tenantId
@@ -393,14 +391,14 @@ components:
               type: string
             isShortcut:
               type: boolean
+              nullable: true
             alternateId:
               type: string
+              nullable: true
           required:
             - parentDirectoryId
             - length
             - contentType
-            - isShortcut
-            - alternateId
     drive-directory-info:
       allOf:
         - $ref: '#/components/schemas/drive-item-info'

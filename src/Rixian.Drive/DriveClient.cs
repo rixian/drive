@@ -41,7 +41,9 @@ namespace Rixian.Drive
         /// <inheritdoc/>
         public Task<DriveItemInfo> CreateDriveItemAsync(CloudPath path, bool? overwrite = null, FileParameter body = null, CancellationToken cancellationToken = default)
         {
+#pragma warning disable CA1062 // Validate arguments of public methods
             return this.internalDriveClient.CreateDriveItemAsync(path, overwrite, body, cancellationToken);
+#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <inheritdoc/>

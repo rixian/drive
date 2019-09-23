@@ -560,7 +560,7 @@ namespace Rixian.Drive
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create Drive Item</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<DriveItemInfo> CreateDriveItemAsync(string path, bool? overwrite = null, FileParameter body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        protected async System.Threading.Tasks.Task<DriveItemInfo> CreateDriveItemCoreAsync(string path, bool? overwrite = null, FileParameter body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (path == null)
                 throw new System.ArgumentNullException("path");
@@ -1088,8 +1088,8 @@ namespace Rixian.Drive
         public string Name { get; set; }
     
         [Newtonsoft.Json.JsonProperty("attributes", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required]
-        public System.Collections.Generic.ICollection<string> Attributes { get; set; } = new System.Collections.ObjectModel.Collection<string>();
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public string Attributes { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -1185,11 +1185,10 @@ namespace Rixian.Drive
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string ContentType { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("isShortcut", Required = Newtonsoft.Json.Required.Always)]
-        public bool IsShortcut { get; set; }
+        [Newtonsoft.Json.JsonProperty("isShortcut", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? IsShortcut { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("alternateId", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("alternateId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string AlternateId { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
