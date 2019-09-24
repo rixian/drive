@@ -27,51 +27,51 @@ namespace Rixian.Drive
         }
 
         /// <inheritdoc/>
-        public Task ClearFileMetadataAsync(CloudPath path, CancellationToken cancellationToken = default)
+        public Task ClearFileMetadataAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.ClearFileMetadataAsync(path, cancellationToken);
+            return this.internalDriveClient.ClearFileMetadataAsync(path, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task CopyAsync(CloudPath source, CloudPath target, CancellationToken cancellationToken = default)
+        public Task CopyAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.CopyAsync(source, target, cancellationToken);
+            return this.internalDriveClient.CopyAsync(source, target, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task<DriveItemInfo> CreateDriveItemAsync(CloudPath path, bool? overwrite = null, FileParameter body = null, CancellationToken cancellationToken = default)
+        public Task<DriveItemInfo> CreateDriveItemAsync(CloudPath path, bool? overwrite = null, FileParameter body = null, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
 #pragma warning disable CA1062 // Validate arguments of public methods
-            return this.internalDriveClient.CreateDriveItemAsync(path, overwrite, body, cancellationToken);
+            return this.internalDriveClient.CreateDriveItemAsync(path, overwrite, body, tenantId, cancellationToken);
 #pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <inheritdoc/>
-        public Task DeleteItemAsync(CloudPath path, CancellationToken cancellationToken = default)
+        public Task DeleteItemAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.DeleteItemAsync(path, cancellationToken);
+            return this.internalDriveClient.DeleteItemAsync(path, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task<FileResponse> DownloadContentAsync(CloudPath path, CancellationToken cancellationToken = default)
+        public Task<FileResponse> DownloadContentAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.DownloadContentAsync(path, cancellationToken);
+            return this.internalDriveClient.DownloadContentAsync(path, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task<ExistsResponse> ExistsAsync(CloudPath path, CancellationToken cancellationToken = default)
+        public Task<ExistsResponse> ExistsAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.ExistsAsync(path, cancellationToken);
+            return this.internalDriveClient.ExistsAsync(path, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task<DriveItemInfo> GetItemInfoAsync(CloudPath path, CancellationToken cancellationToken = default)
+        public Task<DriveItemInfo> GetItemInfoAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.GetItemInfoAsync(path, cancellationToken);
+            return this.internalDriveClient.GetItemInfoAsync(path, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task<ICollection<DriveFileInfo>> ImportFilesAsync(ICollection<ImportRecord> files, CloudPath path = null, CancellationToken cancellationToken = default)
+        public Task<ICollection<DriveFileInfo>> ImportFilesAsync(ICollection<ImportRecord> files, CloudPath path = null, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
             return this.internalDriveClient.ImportFilesAsync(
                 new ImportRequest
@@ -79,44 +79,46 @@ namespace Rixian.Drive
                     Files = files,
                 },
                 path,
+                tenantId,
                 cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task<ICollection<DriveItemInfo>> ListChildrenAsync(CloudPath path, CancellationToken cancellationToken = default)
+        public Task<ICollection<DriveItemInfo>> ListChildrenAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.ListChildrenAsync(path, cancellationToken);
+            return this.internalDriveClient.ListChildrenAsync(path, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task<IDictionary<string, string>> ListFileMetadataAsync(CloudPath path, CancellationToken cancellationToken = default)
+        public Task<IDictionary<string, string>> ListFileMetadataAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.ListFileMetadataAsync(path, cancellationToken);
+            return this.internalDriveClient.ListFileMetadataAsync(path, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task<ICollection<string>> ListFileStreamsAsync(CloudPath path, CancellationToken cancellationToken = default)
+        public Task<ICollection<string>> ListFileStreamsAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.ListFileStreamsAsync(path, cancellationToken);
+            return this.internalDriveClient.ListFileStreamsAsync(path, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task MoveAsync(CloudPath source, CloudPath target, CancellationToken cancellationToken = default)
+        public Task MoveAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.MoveAsync(source, target, cancellationToken);
+            return this.internalDriveClient.MoveAsync(source, target, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task RemoveFileMetadataAsync(CloudPath path, string key, CancellationToken cancellationToken = default)
+        public Task RemoveFileMetadataAsync(CloudPath path, string key, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
-            return this.internalDriveClient.RemoveFileMetadataAsync(path, key, cancellationToken);
+            return this.internalDriveClient.RemoveFileMetadataAsync(path, key, tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>
-        public Task UpsertFileMetadataAsync(CloudPath path, IReadOnlyDictionary<string, string> metadata, CancellationToken cancellationToken = default)
+        public Task UpsertFileMetadataAsync(CloudPath path, IReadOnlyDictionary<string, string> metadata, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
             return this.internalDriveClient.UpsertFileMetadataAsync(
                 path,
+                tenantId,
                 new UpsertFileMetadataRequest
                 {
                     Metadata = metadata,

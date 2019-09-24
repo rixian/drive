@@ -18,7 +18,7 @@ namespace Rixian.Drive
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create Drive Item</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<DriveItemInfo> CreateDriveItemAsync(string path, bool? overwrite = null, FileParameter body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<DriveItemInfo> CreateDriveItemAsync(string path, bool? overwrite = null, FileParameter body = null, Guid? tenantId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (path == null)
                 throw new System.ArgumentNullException("path");
@@ -29,6 +29,10 @@ namespace Rixian.Drive
             if (overwrite != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("overwrite") + "=").Append(System.Uri.EscapeDataString(ConvertToString(overwrite, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (tenantId != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("tenantId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(tenantId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
 

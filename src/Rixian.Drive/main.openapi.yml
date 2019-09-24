@@ -28,6 +28,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/info:
     get:
       responses:
@@ -45,6 +51,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/import:
     post:
       responses:
@@ -64,6 +76,12 @@ paths:
           required: false
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
       requestBody:
         required: true
         content:
@@ -89,6 +107,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/upsert-metadata:
     post:
       responses:
@@ -102,6 +126,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
       requestBody:
         content:
           application/json:
@@ -120,6 +150,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/remove-metadata:
     post:
       responses:
@@ -138,6 +174,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/delete:
     post:
       responses:
@@ -151,6 +193,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/create:
     post:
       responses:
@@ -173,6 +221,12 @@ paths:
           schema:
             type: boolean
             default: false
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
       requestBody:
         content:
           '*/*':
@@ -198,6 +252,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/exists:
     get:
       responses:
@@ -216,6 +276,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/streams:
     get:
       responses:
@@ -235,6 +301,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/copy:
     post:
       responses:
@@ -253,6 +325,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
   /cmd/move:
     post:
       responses:
@@ -271,6 +349,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
 servers:
   - url: 'https://api.rixian.io/drive'
 security:
