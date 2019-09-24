@@ -15,6 +15,7 @@ namespace Rixian.Drive
         /// <param name="path"></param>
         /// <param name="overwrite"></param>
         /// <param name="body"></param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create Drive Item</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>

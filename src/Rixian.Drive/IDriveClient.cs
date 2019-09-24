@@ -18,6 +18,7 @@ namespace Rixian.Drive
         /// Downloads the file contents or alternate stream data.
         /// </summary>
         /// <param name="path">The path to a location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         Task<FileResponse> DownloadContentAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -26,6 +27,7 @@ namespace Rixian.Drive
         /// Retrieve the metadata about the drive item.
         /// </summary>
         /// <param name="path">The path to a location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         Task<DriveItemInfo> GetItemInfoAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -34,6 +36,7 @@ namespace Rixian.Drive
         /// Lists all metadata about a file.
         /// </summary>
         /// <param name="path">The path to a location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         Task<IDictionary<string, string>> ListFileMetadataAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -43,6 +46,7 @@ namespace Rixian.Drive
         /// </summary>
         /// <param name="files">The files to import.</param>
         /// <param name="path">The path to the default import location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task<ICollection<DriveFileInfo>> ImportFilesAsync(ICollection<ImportRecord> files, CloudPath path = null, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -52,6 +56,7 @@ namespace Rixian.Drive
         /// </summary>
         /// <param name="path">The path to a location.</param>
         /// <param name="metadata">All metadata items to update.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task UpsertFileMetadataAsync(CloudPath path, IReadOnlyDictionary<string, string> metadata, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -60,6 +65,7 @@ namespace Rixian.Drive
         /// Clears all file metadata.
         /// </summary>
         /// <param name="path">The path to a location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task ClearFileMetadataAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -69,6 +75,7 @@ namespace Rixian.Drive
         /// </summary>
         /// <param name="path">The path to a location.</param>
         /// <param name="key">The metadata key.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task RemoveFileMetadataAsync(CloudPath path, string key, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -77,6 +84,7 @@ namespace Rixian.Drive
         /// Deletes a file or directory.
         /// </summary>
         /// <param name="path">The path to a location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task DeleteItemAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -87,6 +95,7 @@ namespace Rixian.Drive
         /// <param name="path">The path to a location.</param>
         /// <param name="overwrite">Overwite the existing file contents.</param>
         /// <param name="fileContents">The file contents.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         Task<DriveItemInfo> CreateDriveItemAsync(CloudPath path, bool? overwrite = null, FileParameter fileContents = null, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -95,6 +104,7 @@ namespace Rixian.Drive
         /// Lists directory children.
         /// </summary>
         /// <param name="path">The path to a location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         Task<ICollection<DriveItemInfo>> ListChildrenAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -103,6 +113,7 @@ namespace Rixian.Drive
         /// Checks if a file or directory exists.
         /// </summary>
         /// <param name="path">The path to a location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         Task<ExistsResponse> ExistsAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -111,6 +122,7 @@ namespace Rixian.Drive
         /// Lists the streams associated with a file.
         /// </summary>
         /// <param name="path">The path to a location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         Task<ICollection<string>> ListFileStreamsAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -120,6 +132,7 @@ namespace Rixian.Drive
         /// </summary>
         /// <param name="source">The source location.</param>
         /// <param name="target">The target location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task CopyAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default);
@@ -129,6 +142,7 @@ namespace Rixian.Drive
         /// </summary>
         /// <param name="source">The source location.</param>
         /// <param name="target">The target location.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task MoveAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default);
