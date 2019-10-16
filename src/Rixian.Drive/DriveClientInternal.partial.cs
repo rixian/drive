@@ -42,11 +42,14 @@ namespace Rixian.Drive
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var content_ = new System.Net.Http.MultipartFormDataContent();
-                    var streamContent_ = new System.Net.Http.StreamContent(body.Data);
-                    streamContent_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(body.ContentType);
-                    content_.Add(streamContent_, "data", body.FileName);
-                    request_.Content = content_;
+                    if (body != null)
+                    {
+                        var content_ = new System.Net.Http.MultipartFormDataContent();
+                        var streamContent_ = new System.Net.Http.StreamContent(body.Data);
+                        streamContent_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(body.ContentType);
+                        content_.Add(streamContent_, "data", body.FileName);
+                        request_.Content = content_;
+                    }
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
 

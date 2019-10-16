@@ -39,6 +39,12 @@ namespace Rixian.Drive
         }
 
         /// <inheritdoc/>
+        public Task<Drive> CreateDriveAsync(CreateDriveRequest request, Guid? tenantId = null, CancellationToken cancellationToken = default)
+        {
+            return this.internalDriveClient.CreateDriveAsync(tenantId, request, cancellationToken);
+        }
+
+        /// <inheritdoc/>
         public Task<DriveItemInfo> CreateDriveItemAsync(CloudPath path, bool? overwrite = null, FileParameter body = null, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
 #pragma warning disable CA1062 // Validate arguments of public methods
@@ -90,6 +96,12 @@ namespace Rixian.Drive
         }
 
         /// <inheritdoc/>
+        public Task<ICollection<Drive>> ListDrivesAsync(Guid? tenantId = null, CancellationToken cancellationToken = default)
+        {
+            return this.internalDriveClient.ListDrivesAsync(tenantId, cancellationToken);
+        }
+
+        /// <inheritdoc/>
         public Task<IDictionary<string, string>> ListFileMetadataAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
             return this.internalDriveClient.ListFileMetadataAsync(path, tenantId, cancellationToken);
@@ -99,6 +111,12 @@ namespace Rixian.Drive
         public Task<ICollection<string>> ListFileStreamsAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
             return this.internalDriveClient.ListFileStreamsAsync(path, tenantId, cancellationToken);
+        }
+
+        /// <inheritdoc/>
+        public Task<ICollection<Partition>> ListPartitionsAsync(Guid? tenantId = null, CancellationToken cancellationToken = default)
+        {
+            return this.internalDriveClient.ListPartitionsAsync(tenantId, cancellationToken);
         }
 
         /// <inheritdoc/>

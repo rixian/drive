@@ -2,10 +2,16 @@
 // Licensed under the Apache License, Version 2.0 license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using RichardSzalay.MockHttp;
+using Rixian.Drive;
 using Rixian.Extensions.Tokens;
+using Xunit;
 using Xunit.Abstractions;
 
 public class DriveClientTests
@@ -32,7 +38,7 @@ public class DriveClientTests
         IServiceProvider services = ConfigureServices(mockHttp);
         IDriveClient driveClient = services.GetRequiredService<IDriveClient>();
 
-        ICollection<Tenant> tenants = await driveClient.ListTenantsAsync().ConfigureAwait(false);
+        ICollection<Tenant> tenants = await driveClient.().ConfigureAwait(false);
 
         mockHttp.GetMatchCount(request).Should().Be(1);
 
@@ -44,7 +50,7 @@ public class DriveClientTests
         tenant.TenantId.Should().Be(tenantId);
         tenant.Name.Should().Be(tenantName);
     }
-*/
+    */
 
     private static IServiceProvider ConfigureServices(MockHttpMessageHandler mockHttp)
     {

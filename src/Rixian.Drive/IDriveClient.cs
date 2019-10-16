@@ -146,5 +146,30 @@ namespace Rixian.Drive
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         Task MoveAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Creates a new drive.
+        /// </summary>
+        /// <param name="request">The request body for creating a new drive.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        Task<Drive> CreateDriveAsync(CreateDriveRequest request, Guid? tenantId = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Lists all available drives.
+        /// </summary>
+        /// <param name="tenantId">Optional tenant ID.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        Task<ICollection<Drive>> ListDrivesAsync(Guid? tenantId = null, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Lists all available partitions.
+        /// </summary>
+        /// <param name="tenantId">Optional tenant ID.</param>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
+        Task<ICollection<Partition>> ListPartitionsAsync(Guid? tenantId = null, CancellationToken cancellationToken = default);
     }
 }

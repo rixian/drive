@@ -355,6 +355,74 @@ paths:
           schema:
             type: string
             format: uuid
+  /drives:
+    post:
+      responses:
+        '204':
+          description: ''
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/drive'
+      summary: CreateDrive
+      operationId: create-drive
+      parameters:
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create-drive-request'
+    get:
+      responses:
+        '204':
+          description: ''
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/drive'
+      summary: ListDrives
+      operationId: list-drives
+      parameters:
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
+  /partitions:
+    get:
+      responses:
+        '204':
+          description: ''
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/partition'
+      summary: ListPartitions
+      operationId: list-partitions
+      parameters:
+        - in: query
+          name: tenantId
+          required: false
+          schema:
+            type: string
+            format: uuid
 servers:
   - url: 'https://api.rixian.io/drive'
 security:
@@ -534,3 +602,65 @@ components:
       required:
         - name
         - alternateId
+    create-drive-request:
+      type: object
+      title: CreateDriveRequest
+      properties:
+        driveControllerId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        driverInfo:
+          type: string
+        trustLevel:
+          type: string
+        partitionLabel:
+          type: string
+      required:
+        - name
+        - driveControllerId
+        - driverInfo
+    drive:
+      type: object
+      title: Drive
+      properties:
+        id:
+          type: string
+          format: uuid
+        tenantId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        driveControllerId:
+          type: string
+          format: uuid
+        trustLevel:
+          type: string
+      required:
+        - id
+        - name
+        - driveControllerId
+    partition:
+      type: object
+      title: Drive
+      properties:
+        id:
+          type: string
+          format: uuid
+        tenantId:
+          type: string
+          format: uuid
+        label:
+          type: string
+        driveId:
+          type: string
+          format: uuid
+        rootDirectoryId:
+          type: string
+          format: uuid
+      required:
+        - id
+        - name
+        - driveControllerId
