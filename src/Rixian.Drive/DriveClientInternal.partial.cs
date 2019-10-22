@@ -12,9 +12,9 @@ namespace Rixian.Drive
 {
     internal partial class DriveClientInternal
     {
-        /// <param name="path"></param>
-        /// <param name="overwrite"></param>
-        /// <param name="body"></param>
+        /// <param name="path">The path to the drive item.</param>
+        /// <param name="overwrite">Options flag to idicate if the file should be overwritten.</param>
+        /// <param name="body">Required for creating files.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create Drive Item</summary>
@@ -97,9 +97,14 @@ namespace Rixian.Drive
             }
         }
 
+        /// <summary>
+        /// Upserts metadata to a given file.
+        /// </summary>
+        /// <param name="path">The path to the file.</param>
+        /// <param name="request">The upsert request. Tags should be unique.</param>
+        /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>Upsert File Metadata</summary>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
+        /// <returns>An awaitable task.</returns>
         public async System.Threading.Tasks.Task UpsertFileMetadataAsync(string path, UpsertFileMetadataRequest request, System.Guid? tenantId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (path == null)
