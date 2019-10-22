@@ -136,11 +136,11 @@ namespace Rixian.Drive
         {
             return this.internalDriveClient.UpsertFileMetadataAsync(
                 path,
-                tenantId,
                 new UpsertFileMetadataRequest
                 {
                     Metadata = metadata,
                 },
+                tenantId,
                 cancellationToken);
         }
     }
