@@ -16,7 +16,8 @@
       "injectHttpClient": true,
       "disposeHttpClient": true,
       "protectedMethods": [
-        "DriveClientInternal.CreateDriveItemAsync"
+        "DriveClientInternal.CreateDriveItemAsync",
+        "DriveClientInternal.UpsertFileMetadataAsync"
       ],
       "generateExceptionClasses": true,
       "exceptionClass": "ApiException",

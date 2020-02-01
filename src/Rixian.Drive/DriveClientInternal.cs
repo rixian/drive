@@ -322,7 +322,7 @@ namespace Rixian.Drive
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Upsert File Metadata</summary>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task UpsertFileMetadataAsync(string path, System.Guid? tenantId = null, UpsertFileMetadataRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        protected async System.Threading.Tasks.Task UpsertFileMetadataCoreAsync(string path, System.Guid? tenantId = null, UpsertFileMetadataRequest body = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (path == null)
                 throw new System.ArgumentNullException("path");
