@@ -3,16 +3,22 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <CodeAnalysisRuleSet>../shipping.ruleset</CodeAnalysisRuleSet>
+    <Configurations>Debug;Release;ProjRef</Configurations>
     <Description>Dependency Injection extensions for the Rixian.Drive library.</Description>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../Rixian.Drive/Rixian.Drive.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' != 'ProjRef'">
     <PackageReference Include="Rixian.Extensions.Http" Version="0.5.6" />
     <PackageReference Include="Rixian.Extensions.Tokens" Version="0.4.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="../Rixian.Drive/Rixian.Drive.csproj" />
+  <ItemGroup Condition="'$(Configuration)' == 'ProjRef'">
+    <ProjectReference Include="..\..\..\extensions-http\src\Rixian.Extensions.Http\Rixian.Extensions.Http.csproj" />
+    <ProjectReference Include="..\..\..\extensions-tokens\src\Rixian.Extensions.Tokens\Rixian.Extensions.Tokens.csproj" />
   </ItemGroup>
 
 </Project>

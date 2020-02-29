@@ -5,6 +5,7 @@ namespace Rixian.Drive
 {
     using System;
     using System.Collections.Generic;
+    using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
     using Rixian.Drive.Common;
@@ -12,7 +13,7 @@ namespace Rixian.Drive
     /// <summary>
     /// Interface that defines operations for interacting with the Rixian Drive API.
     /// </summary>
-    public partial interface IDriveClient
+    public interface IDriveClient
     {
         /// <summary>
         /// Downloads the file contents or alternate stream data.
@@ -20,8 +21,8 @@ namespace Rixian.Drive
         /// <param name="path">The path to a location.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<FileResponse> DownloadContentAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> DownloadContentHttpResponseAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieve the metadata about the drive item.
@@ -29,8 +30,8 @@ namespace Rixian.Drive
         /// <param name="path">The path to a location.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<DriveItemInfo> GetItemInfoAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> GetItemInfoHttpResponseAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Lists all metadata about a file.
@@ -38,8 +39,8 @@ namespace Rixian.Drive
         /// <param name="path">The path to a location.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<IDictionary<string, string>> ListFileMetadataAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> ListFileMetadataHttpResponseAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Imports custom files into Rixian Drive.
@@ -49,7 +50,7 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        Task<ICollection<DriveFileInfo>> ImportFilesAsync(ICollection<ImportRecord> files, CloudPath path = null, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        Task<HttpResponseMessage> ImportFilesHttpResponseAsync(ICollection<ImportRecord> files, CloudPath path = null, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Update and/or insert metadata onto a file.
@@ -59,7 +60,7 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        Task UpsertFileMetadataAsync(CloudPath path, IReadOnlyDictionary<string, string> metadata, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        Task<HttpResponseMessage> UpsertFileMetadataHttpResponseAsync(CloudPath path, IReadOnlyDictionary<string, string> metadata, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Clears all file metadata.
@@ -68,7 +69,7 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        Task ClearFileMetadataAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        Task<HttpResponseMessage> ClearFileMetadataHttpResponseAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Removes a specific file metadata item.
@@ -78,7 +79,7 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        Task RemoveFileMetadataAsync(CloudPath path, string key, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        Task<HttpResponseMessage> RemoveFileMetadataHttpResponseAsync(CloudPath path, string key, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes a file or directory.
@@ -87,7 +88,7 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        Task DeleteItemAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        Task<HttpResponseMessage> DeleteItemHttpResponseAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Creates a new file or directory.
@@ -97,8 +98,8 @@ namespace Rixian.Drive
         /// <param name="fileContents">The file contents.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<DriveItemInfo> CreateDriveItemAsync(CloudPath path, bool? overwrite = null, FileParameter fileContents = null, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> CreateDriveItemHttpResponseAsync(CloudPath path, bool? overwrite = null, FileParameter fileContents = null, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Lists directory children.
@@ -106,8 +107,8 @@ namespace Rixian.Drive
         /// <param name="path">The path to a location.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<ICollection<DriveItemInfo>> ListChildrenAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> ListChildrenHttpResponseAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Checks if a file or directory exists.
@@ -115,8 +116,8 @@ namespace Rixian.Drive
         /// <param name="path">The path to a location.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<ExistsResponse> ExistsAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> ExistsHttpResponseAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Lists the streams associated with a file.
@@ -124,8 +125,8 @@ namespace Rixian.Drive
         /// <param name="path">The path to a location.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<ICollection<string>> ListFileStreamsAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> ListFileStreamsHttpResponseAsync(CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Copies a file or directory.
@@ -135,7 +136,7 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        Task CopyAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        Task<HttpResponseMessage> CopyHttpResponseAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Moves a file or directory.
@@ -145,7 +146,7 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
-        Task MoveAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        Task<HttpResponseMessage> MoveHttpResponseAsync(CloudPath source, CloudPath target, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Creates a new drive.
@@ -153,23 +154,23 @@ namespace Rixian.Drive
         /// <param name="request">The request body for creating a new drive.</param>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<Drive> CreateDriveAsync(CreateDriveRequest request, Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> CreateDriveHttpResponseAsync(CreateDriveRequest request, Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Lists all available drives.
         /// </summary>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<ICollection<Drive>> ListDrivesAsync(Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> ListDrivesHttpResponseAsync(Guid? tenantId = null, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Lists all available partitions.
         /// </summary>
         /// <param name="tenantId">Optional tenant ID.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        Task<ICollection<Partition>> ListPartitionsAsync(Guid? tenantId = null, CancellationToken cancellationToken = default);
+        /// <returns>The raw HttpResponseMessage.</returns>
+        Task<HttpResponseMessage> ListPartitionsHttpResponseAsync(Guid? tenantId = null, CancellationToken cancellationToken = default);
     }
 }
