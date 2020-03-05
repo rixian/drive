@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' != 'ProjRef'">
-    <PackageReference Include="Rixian.Extensions.Http" Version="0.5.6" />
+    <PackageReference Include="Rixian.Extensions.Http" Version="0.6.10" />
     <PackageReference Include="Rixian.Extensions.Tokens" Version="0.4.10" />
   </ItemGroup>
 
