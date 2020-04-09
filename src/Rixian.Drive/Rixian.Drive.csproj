@@ -19,7 +19,7 @@
 
   <ItemGroup Condition="'$(Configuration)' == 'ProjRef'">
     <ProjectReference Include="..\..\..\drive-common\src\Rixian.Drive.Common\Rixian.Drive.Common.csproj" />
-    <ProjectReference Include="..\..\..\..\rixian\extensions-http\src\Rixian.Extensions.Http.Client\Rixian.Extensions.Http.Client.csproj" />
+    <ProjectReference Include="..\..\..\extensions-http\src\Rixian.Extensions.Http.Client\Rixian.Extensions.Http.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
