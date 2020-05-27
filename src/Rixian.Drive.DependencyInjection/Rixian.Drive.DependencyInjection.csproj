@@ -8,16 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="../Rixian.Drive/Rixian.Drive.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' != 'Debug'">
-    <PackageReference Include="Rixian.Extensions.Http" Version="0.6.10" />
-    <PackageReference Include="Rixian.Extensions.Tokens" Version="0.4.10" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-    <ProjectReference Include="..\..\..\extensions-http\src\Rixian.Extensions.Http\Rixian.Extensions.Http.csproj" />
-    <ProjectReference Include="..\..\..\extensions-tokens\src\Rixian.Extensions.Tokens\Rixian.Extensions.Tokens.csproj" />
+    <PackageReference Include="Rixian.Extensions.Http" Version="0.8.9" />
+    <PackageReference Include="Rixian.Extensions.Tokens" Version="0.5.11" />
   </ItemGroup>
 
 </Project>

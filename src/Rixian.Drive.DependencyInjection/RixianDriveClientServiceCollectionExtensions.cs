@@ -36,8 +36,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             // Configure the ITokenClient to use the previous HttpClient.
             serviceCollection
-                .AddTokenClient(DriveClientOptions.DriveTokenClientName, options.TokenClientOptions)
-                .UseHttpClient(DriveClientOptions.DriveTokenClientHttpClientName);
+                .AddClientCredentialsTokenClient(DriveClientOptions.DriveTokenClientName, options.TokenClientOptions)
+                .UseHttpClientForBackchannel(DriveClientOptions.DriveTokenClientHttpClientName);
 
             // Configure the HttpClient with the ITokenClient for inserting tokens into the header.
             IHttpClientBuilder httpClientBuilder = serviceCollection

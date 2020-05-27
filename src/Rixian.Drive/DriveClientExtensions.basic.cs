@@ -37,7 +37,7 @@ namespace Rixian.Drive
 
             Result result = await driveClient.ClearFileMetadataResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsError)
+            if (result.IsFail)
             {
                 throw ApiException.Create(result.Error);
             }
@@ -61,7 +61,7 @@ namespace Rixian.Drive
 
             Result result = await driveClient.CopyResultAsync(source, target, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsError)
+            if (result.IsFail)
             {
                 throw ApiException.Create(result.Error);
             }
@@ -84,7 +84,7 @@ namespace Rixian.Drive
 
             Result<Drive> result = await driveClient.CreateDriveResultAsync(request, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -111,7 +111,7 @@ namespace Rixian.Drive
 
             Result<DriveItemInfo> result = await driveClient.CreateDriveItemResultAsync(path, overwrite, fileContents, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -136,7 +136,7 @@ namespace Rixian.Drive
 
             Result result = await driveClient.DeleteItemResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsError)
+            if (result.IsFail)
             {
                 throw ApiException.Create(result.Error);
             }
@@ -150,16 +150,16 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional. Specifies which tenant to use.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Either a file response or an error.</returns>
-        public static async Task<FileResponse> DownloadContentAsync(this IDriveClient driveClient, CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
+        public static async Task<HttpFileResponse> DownloadContentAsync(this IDriveClient driveClient, CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
             if (driveClient is null)
             {
                 throw new ArgumentNullException(nameof(driveClient));
             }
 
-            Result<FileResponse> result = await driveClient.DownloadContentResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
+            Result<HttpFileResponse> result = await driveClient.DownloadContentResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -184,7 +184,7 @@ namespace Rixian.Drive
 
             Result<ExistsResponse> result = await driveClient.ExistsResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -209,7 +209,7 @@ namespace Rixian.Drive
 
             Result<DriveItemInfo> result = await driveClient.GetItemInfoResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -235,7 +235,7 @@ namespace Rixian.Drive
 
             Result<ICollection<DriveFileInfo>> result = await driveClient.ImportFilesResultAsync(files, path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -260,7 +260,7 @@ namespace Rixian.Drive
 
             Result<ICollection<DriveItemInfo>> result = await driveClient.ListChildrenResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -284,7 +284,7 @@ namespace Rixian.Drive
 
             Result<ICollection<Drive>> result = await driveClient.ListDrivesResultAsync(tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -309,7 +309,7 @@ namespace Rixian.Drive
 
             Result<IDictionary<string, string>> result = await driveClient.ListFileMetadataResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -334,7 +334,7 @@ namespace Rixian.Drive
 
             Result<ICollection<string>> result = await driveClient.ListFileStreamsResultAsync(path, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -358,7 +358,7 @@ namespace Rixian.Drive
 
             Result<ICollection<Partition>> result = await driveClient.ListPartitionsResultAsync(tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsResult)
+            if (result.IsSuccess)
             {
                 return result.Value;
             }
@@ -384,7 +384,7 @@ namespace Rixian.Drive
 
             Result result = await driveClient.MoveResultAsync(source, target, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsError)
+            if (result.IsFail)
             {
                 throw ApiException.Create(result.Error);
             }
@@ -408,7 +408,7 @@ namespace Rixian.Drive
 
             Result result = await driveClient.RemoveFileMetadataResultAsync(path, key, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsError)
+            if (result.IsFail)
             {
                 throw ApiException.Create(result.Error);
             }
@@ -432,7 +432,7 @@ namespace Rixian.Drive
 
             Result result = await driveClient.UpsertFileMetadataResultAsync(path, metadata, tenantId, cancellationToken).ConfigureAwait(false);
 
-            if (result.IsError)
+            if (result.IsFail)
             {
                 throw ApiException.Create(result.Error);
             }
