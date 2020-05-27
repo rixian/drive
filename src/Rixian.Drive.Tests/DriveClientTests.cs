@@ -10,9 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using RichardSzalay.MockHttp;
 using Rixian.Drive;
+using Rixian.Extensions.Errors;
 using Rixian.Extensions.Tokens;
 using Xunit;
 using Xunit.Abstractions;
+using static Rixian.Extensions.Errors.Prelude;
 
 public class DriveClientTests
 {
@@ -65,7 +67,7 @@ public class DriveClientTests
 
         serviceCollection.AddDriveClient(new DriveClientOptions
         {
-            TokenClientOptions = new TokenClientOptions
+            TokenClientOptions = new ClientCredentialsTokenClientOptions
             {
                 Authority = string.Empty,
                 ClientId = string.Empty,
@@ -83,9 +85,9 @@ public class DriveClientTests
         ITokenInfo tokenInfo = Substitute.For<ITokenInfo>();
         tokenInfo.AccessToken.Returns(accessToken);
         ITokenClient tokenClient = Substitute.For<ITokenClient>();
-        tokenClient.GetTokenAsync(Arg.Any<bool>()).Returns(tokenInfo);
+        tokenClient.GetTokenAsync(Arg.Any<bool>()).Returns(Result(tokenInfo));
         ITokenClientFactory tokenClientFactory = Substitute.For<ITokenClientFactory>();
-        tokenClientFactory.GetTokenClient(DriveClientOptions.DriveTokenClientName).Returns(tokenClient);
+        tokenClientFactory.GetTokenClient(DriveClientOptions.DriveTokenClientName).Returns(Result(tokenClient));
         return (accessToken, tokenClientFactory);
     }
 }

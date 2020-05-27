@@ -64,7 +64,7 @@ namespace Rixian.Drive
         /// </summary>
         /// <param name="error">The error to use for populating the exception.</param>
         /// <returns>The initialized ApiException.</returns>
-        public static ApiException Create(ErrorBase error)
+        public static ApiException Create(Error error)
         {
             var errorMessage = JsonConvert.SerializeObject(error, Formatting.Indented);
             return new ApiException(errorMessage);

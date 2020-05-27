@@ -50,19 +50,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(ClearFileMetadataResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult();
                         }
                 }
             }
@@ -99,19 +99,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(CopyResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult();
                         }
                 }
             }
@@ -148,19 +148,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<Drive>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<Drive>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(CreateDriveResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<Drive>();
                         }
                 }
             }
@@ -199,19 +199,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<DriveItemInfo>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<DriveItemInfo>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(CreateDriveItemResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<DriveItemInfo>();
                         }
                 }
             }
@@ -247,19 +247,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(DeleteItemResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult();
                         }
                 }
             }
@@ -273,7 +273,7 @@ namespace Rixian.Drive
         /// <param name="tenantId">Optional. Specifies which tenant to use.</param>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Either a file response or an error.</returns>
-        public static async Task<Result<FileResponse>> DownloadContentResultAsync(this IDriveClient driveClient, CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
+        public static async Task<Result<HttpFileResponse>> DownloadContentResultAsync(this IDriveClient driveClient, CloudPath path, Guid? tenantId = null, CancellationToken cancellationToken = default)
         {
             if (driveClient is null)
             {
@@ -286,19 +286,8 @@ namespace Rixian.Drive
             {
                 case HttpStatusCode.OK:
                     {
-                        Stream responseStream = response.Content == null ? Stream.Null : await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-                        var headers = response.Headers.ToDictionary(h => h.Key, h => h.Value);
-                        if (response.Content != null && response.Content.Headers != null)
-                        {
-                            foreach (KeyValuePair<string, IEnumerable<string>> item_ in response.Content.Headers)
-                            {
-                                headers[item_.Key] = item_.Value;
-                            }
-                        }
-
-                        // TODO:
-                        // var fileResponse = new HttpFileResponse(response.StatusCode, headers, responseStream, response);
-                        return Result.Create(new FileResponse((int)response.StatusCode, headers, responseStream, null, response));
+                        Result<HttpFileResponse> fileResponse = await HttpFileResponse.CreateAsync(response).ConfigureAwait(false);
+                        return fileResponse;
                     }
 
                 case HttpStatusCode.NoContent:
@@ -311,12 +300,12 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<HttpFileResponse>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<HttpFileResponse>();
                             }
                         }
                         finally
@@ -329,7 +318,7 @@ namespace Rixian.Drive
                     {
                         UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(DownloadContentResultAsync)}").ConfigureAwait(false);
                         response.Dispose();
-                        return error;
+                        return error.ToResult<HttpFileResponse>();
                     }
             }
         }
@@ -365,19 +354,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<ExistsResponse>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<ExistsResponse>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(ExistsResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<ExistsResponse>();
                         }
                 }
             }
@@ -414,19 +403,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<DriveItemInfo>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<DriveItemInfo>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(GetItemInfoResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<DriveItemInfo>();
                         }
                 }
             }
@@ -464,19 +453,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<ICollection<DriveFileInfo>>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<ICollection<DriveFileInfo>>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(ImportFilesResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<ICollection<DriveFileInfo>>();
                         }
                 }
             }
@@ -513,19 +502,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<ICollection<DriveItemInfo>>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<ICollection<DriveItemInfo>>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(ListChildrenResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<ICollection<DriveItemInfo>>();
                         }
                 }
             }
@@ -561,19 +550,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<ICollection<Drive>>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<ICollection<Drive>>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(ListDrivesResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<ICollection<Drive>>();
                         }
                 }
             }
@@ -610,19 +599,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<IDictionary<string, string>>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<IDictionary<string, string>>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(ListFileMetadataResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<IDictionary<string, string>>();
                         }
                 }
             }
@@ -659,19 +648,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<ICollection<string>>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<ICollection<string>>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(ListFileStreamsResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<ICollection<string>>();
                         }
                 }
             }
@@ -707,19 +696,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult<ICollection<Partition>>();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult<ICollection<Partition>>();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(ListPartitionsResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult<ICollection<Partition>>();
                         }
                 }
             }
@@ -756,19 +745,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(MoveResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult();
                         }
                 }
             }
@@ -805,19 +794,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(RemoveFileMetadataResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult();
                         }
                 }
             }
@@ -854,19 +843,19 @@ namespace Rixian.Drive
                             if (response.IsContentProblem())
                             {
                                 HttpProblem problem = await response.DeserializeJsonContentAsync<HttpProblem>().ConfigureAwait(false);
-                                return new HttpProblemError(problem);
+                                return new HttpProblemError(problem).ToResult();
                             }
                             else
                             {
                                 ErrorResponse errorResponse = await response.DeserializeJsonContentAsync<ErrorResponse>().ConfigureAwait(false);
-                                return errorResponse.Error;
+                                return errorResponse.Error.ToResult();
                             }
                         }
 
                     default:
                         {
                             UnexpectedStatusCodeError error = await UnexpectedStatusCodeError.CreateAsync(response, $"{nameof(IDriveClient)}.{nameof(UpsertFileMetadataResultAsync)}").ConfigureAwait(false);
-                            return error;
+                            return error.ToResult();
                         }
                 }
             }
